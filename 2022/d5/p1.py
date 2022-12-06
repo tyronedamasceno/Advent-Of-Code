@@ -29,8 +29,5 @@ for line in lines[a+2:]:
     for _ in range(int(qtt)):
         stacks[t].put(stacks[f].get())
 
-ans = ''
-for _, s in stacks.items():
-    ans += s.get()
+print(''.join(stack.values()))
 
-print(ans) 
