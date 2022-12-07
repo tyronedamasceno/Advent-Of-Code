@@ -1,5 +1,5 @@
 from collections import defaultdict
-import queue
+from functools import lru_cache
 
 with open('inp.txt') as f:
     lines = f.read().splitlines()
@@ -32,16 +32,10 @@ for line in lines:
         else:
             dsize[cur_dir] += int(a)
 
+@lru_cache
 def _get_tree_size(root):
-    q = queue.Queue()
-    ans = 0
-    q.put(root)
-    while not q.empty():
-        t = q.get()
-        ans += dsize[t]
-        for child in dchild[t]:
-            q.put(child)
-    return ans
+    return dsize[root] + sum(_get_tree_size(child) for child in dchild[root])
+
 
 dans = {}
 for d in dparent.keys():
