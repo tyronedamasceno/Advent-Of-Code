@@ -15,26 +15,17 @@ pos = {
 }
 
 for to, qtt in moves:
-    # print(to, qtt)
-    # if (to, qtt) == ('L', 3):
-    #     breakpoint()
     for _ in range(qtt):
         head = (head[0] + pos[to][0], head[1] + pos[to][1])
-        if abs(head[0]-tail[0]) > 1:
-            if head[0] > tail[0]:
-                tail = (tail[0] + 1, tail[1])
-            else:
-                tail = (tail[0] - 1, tail[1])
-            if head[1] != tail[1]:
-                tail = tail[0], head[1]
-        if abs(head[1]-tail[1]) > 1:
-            if head[1] > tail[1]:
-                tail = (tail[0], tail[1] + 1)
-            else:
-                tail = (tail[0], tail[1] - 1)
-            if head[0] != tail[0]:
-                tail = head[0], tail[1]
+        
+        if abs(head[0] - tail[0]) <= 1 and abs(head[1] - tail[1]) <= 1:
+            continue
+
+        sign_x = 0 if head[0] == tail[0] else (head[0] - tail[0]) / abs(head[0] - tail[0])
+        sign_y = 0 if head[1] == tail[1] else (head[1] - tail[1]) / abs(head[1] - tail[1])
+
+        tail = tail[0] + sign_x, tail[1] + sign_y
+
         visits.add(tail)
-        # print('after', head, tail)
 
 print(len(visits))
