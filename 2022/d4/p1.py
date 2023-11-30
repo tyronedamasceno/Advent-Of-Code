@@ -1,10 +1,7 @@
-with open('inp.txt') as f:
+with open("inp.txt") as f:
     lines = [
-        [
-            [int(z) for z in y.split('-')]
-            for y in x.split(',')
-        ]
-        for x in f.read().split('\n')
+        [[int(z) for z in y.split("-")] for y in x.split(",")]
+        for x in f.read().split("\n")
     ]
 
 ans = 0

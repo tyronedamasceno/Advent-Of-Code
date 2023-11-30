@@ -2,22 +2,22 @@ from collections import defaultdict
 from queue import Queue
 from math import prod
 
+
 def _get_op_func(operator, value):
-    if operator == '+':
-        if value == 'old':
+    if operator == "+":
+        if value == "old":
             return lambda x: x + x
         return lambda x: x + int(value)
     else:
-        if value == 'old':
+        if value == "old":
             return lambda x: x * x
         return lambda x: x * int(value)
 
-with open('inp.txt') as f:
+
+with open("inp.txt") as f:
     lines = f.read().splitlines()
 
-monkeys_begin_lines = [
-    i for i, line in enumerate(lines) if 'Monkey ' in line
-]
+monkeys_begin_lines = [i for i, line in enumerate(lines) if "Monkey " in line]
 
 monkeys_inspection = defaultdict(int)
 monkeys_pack = defaultdict(Queue)
@@ -27,17 +27,17 @@ monkey_true_destination = {}
 monkey_false_destination = {}
 
 for mk_idx, monkey_start in enumerate(monkeys_begin_lines):
-    _, st_items = lines[monkey_start+1].split(':')
-    for it in st_items.split(','):
+    _, st_items = lines[monkey_start + 1].split(":")
+    for it in st_items.split(","):
         v = int(it.strip())
         monkeys_pack[mk_idx].put(v)
 
-    operator, value = lines[monkey_start+2][23:].split()
+    operator, value = lines[monkey_start + 2][23:].split()
     monkeys_operation[mk_idx] = _get_op_func(operator, value)
 
-    monkeys_div_test[mk_idx] = int(lines[monkey_start+3][21:])
-    monkey_true_destination[mk_idx] = int(lines[monkey_start+4][29:])
-    monkey_false_destination[mk_idx] = int(lines[monkey_start+5][30:])
+    monkeys_div_test[mk_idx] = int(lines[monkey_start + 3][21:])
+    monkey_true_destination[mk_idx] = int(lines[monkey_start + 4][29:])
+    monkey_false_destination[mk_idx] = int(lines[monkey_start + 5][30:])
 
 rounds = 10000
 mod = prod(monkeys_div_test.values())

@@ -1,2 +1,2 @@
-with open('inp.txt') as f:
+with open("inp.txt") as f:
     ...

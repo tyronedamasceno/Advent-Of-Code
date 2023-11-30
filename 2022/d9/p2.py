@@ -1,4 +1,4 @@
-with open('inp.txt') as f:
+with open("inp.txt") as f:
     moves = [x.split() for x in f.read().splitlines()]
     moves = [(a, int(b)) for a, b in moves]
 
@@ -13,9 +13,10 @@ pos = {
     "R": (0, 1),
 }
 
+
 def compare_points(head, tail):
     if abs(head[0] - tail[0]) <= 1 and abs(head[1] - tail[1]) <= 1:
-            return tail
+        return tail
 
     sign_x = 0 if head[0] == tail[0] else (head[0] - tail[0]) / abs(head[0] - tail[0])
     sign_y = 0 if head[1] == tail[1] else (head[1] - tail[1]) / abs(head[1] - tail[1])
@@ -24,12 +25,13 @@ def compare_points(head, tail):
 
     return tail
 
+
 for to, qtt in moves:
     for _ in range(qtt):
         tails[0] = (tails[0][0] + pos[to][0], tails[0][1] + pos[to][1])
 
         for i in range(1, 10):
-            tails[i] = compare_points(tails[i-1], tails[i])
+            tails[i] = compare_points(tails[i - 1], tails[i])
 
         visits.add(tails[-1])
 

@@ -1,28 +1,25 @@
 from collections import defaultdict
 
-with open('inp.txt') as f:
+with open("inp.txt") as f:
     lines = [
-        [
-            (int(k.split(',')[0]), int(k.split(',')[1]))
-            for k in line.split(' -> ')
-        ]
-        for line in f.read().split('\n')
+        [(int(k.split(",")[0]), int(k.split(",")[1])) for k in line.split(" -> ")]
+        for line in f.read().split("\n")
     ]
 
 grid = defaultdict(bool)
 
-minx = float('inf')
-maxx = float('-inf')
-maxy = float('-inf')
+minx = float("inf")
+maxx = float("-inf")
+maxy = float("-inf")
 for line in lines:
     lx, ly = line[0]
     for point in line[1:]:
         px, py = point
         if lx != px:
-            for k in range(min(lx, px),  max(lx, px)+1):
+            for k in range(min(lx, px), max(lx, px) + 1):
                 grid[k, py] = True
         else:
-            for k in range(min(ly, py),  max(ly, py)+1):
+            for k in range(min(ly, py), max(ly, py) + 1):
                 grid[px, k] = True
         grid[point] = True
         maxy = max(maxy, point[1])
@@ -32,7 +29,7 @@ for line in lines:
 
 floor = maxy + 2
 
-for k in range(minx-floor, maxx + floor):
+for k in range(minx - floor, maxx + floor):
     grid[k, floor] = True
 
 start_point = 500, 0

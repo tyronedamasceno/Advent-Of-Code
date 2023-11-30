@@ -1,5 +1,5 @@
-with open('inp.txt') as f:
-    lines = f.read().split('\n')
+with open("inp.txt") as f:
+    lines = f.read().split("\n")
 
 monkey_values = {}
 monkey_ops = {}
@@ -8,13 +8,13 @@ unknown = set()
 
 def perform_op(va, op, vb):
     match op:
-        case '+':
+        case "+":
             return va + vb
-        case '*':
+        case "*":
             return va * vb
-        case '-':
+        case "-":
             return va - vb
-        case '/':
+        case "/":
             return va / vb
 
 
@@ -31,14 +31,14 @@ def solve(m, ma, op, mb):
 
 
 for line in lines:
-    monkey, job = line.split(':')
+    monkey, job = line.split(":")
     job = job.strip()
-    if ' ' not in job:
+    if " " not in job:
         monkey_values[monkey] = int(job)
         continue
 
     unknown.add(monkey)
-    monkey_a, op, monkey_b = job.split(' ')
+    monkey_a, op, monkey_b = job.split(" ")
     monkey_ops[monkey] = (monkey_a, op, monkey_b)
 
-print(solve('root', *monkey_ops['root']))
+print(solve("root", *monkey_ops["root"]))

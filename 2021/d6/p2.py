@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-with open('inp.txt') as f:
-    fishes = [int(x) for x in f.read().split(',')]
+with open("inp.txt") as f:
+    fishes = [int(x) for x in f.read().split(",")]
 
 days = 256
 
@@ -16,7 +16,7 @@ while days:
             new[8] = cur[i]
             new[6] = cur[i]
         else:
-            new[i-1] += cur[i]
+            new[i - 1] += cur[i]
     cur = new
     days -= 1
 

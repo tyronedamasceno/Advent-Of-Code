@@ -1,23 +1,15 @@
 def _get_columns(lines):
-    return [
-        [lines[j][i] for j in range(5)] for i in range(5)
-    ]
+    return [[lines[j][i] for j in range(5)] for i in range(5)]
 
-with open('inp.txt') as f:
-    draw = [int(x) for x in f.readline()[:-1].split(',')]
-    l = [
-        [int(k) for k in x.split()]
-        for x in f.read().split('\n') if x
-    ]
 
-boards = {
-    i // 5: l[i:i+5] for i in range(0, len(l), 5)
-}
+with open("inp.txt") as f:
+    draw = [int(x) for x in f.readline()[:-1].split(",")]
+    l = [[int(k) for k in x.split()] for x in f.read().split("\n") if x]
+
+boards = {i // 5: l[i: i + 5] for i in range(0, len(l), 5)}
 
 boards_sets = {
-    k: [
-        set(line) for line in lines
-    ] + [set(column) for column in _get_columns(lines)]
+    k: [set(line) for line in lines] + [set(column) for column in _get_columns(lines)]
     for k, lines in boards.items()
 }
 

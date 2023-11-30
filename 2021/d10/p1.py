@@ -1,20 +1,10 @@
 from queue import LifoQueue
 
-with open('inp.txt') as f:
-    lines = [list(s) for s in f.read().split('\n')]
+with open("inp.txt") as f:
+    lines = [list(s) for s in f.read().split("\n")]
 
-brackets = {
-    '(': ')',
-    '[': ']',
-    '{': '}',
-    '<': '>'    
-}
-scores = {
-    ')': 3,
-    ']': 57,
-    '}': 1197,
-    '>': 25137
-}
+brackets = {"(": ")", "[": "]", "{": "}", "<": ">"}
+scores = {")": 3, "]": 57, "}": 1197, ">": 25137}
 
 ans = 0
 

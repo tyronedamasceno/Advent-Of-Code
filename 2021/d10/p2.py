@@ -1,20 +1,10 @@
 from queue import LifoQueue
 
-with open('inp.txt') as f:
-    lines = [list(s) for s in f.read().split('\n')]
+with open("inp.txt") as f:
+    lines = [list(s) for s in f.read().split("\n")]
 
-brackets = {
-    '(': ')',
-    '[': ']',
-    '{': '}',
-    '<': '>'    
-}
-scores = {
-    ')': 1,
-    ']': 2,
-    '}': 3,
-    '>': 4
-}
+brackets = {"(": ")", "[": "]", "{": "}", "<": ">"}
+scores = {")": 1, "]": 2, "}": 3, ">": 4}
 
 totals = []
 for line in lines:
@@ -32,10 +22,10 @@ for line in lines:
         ans = 0
         while not st.empty():
             top = st.get()
-            if not top in brackets:
+            if top not in brackets:
                 continue
             ans *= 5
             ans += scores[brackets[top]]
         totals.append(ans)
 
-print(sorted(totals)[len(totals)//2])
+print(sorted(totals)[len(totals) // 2])

@@ -1,6 +1,7 @@
 from functools import cmp_to_key
 import json
 
+
 def check_order(left, right):
     if isinstance(left, int) and isinstance(right, int):
         if left < right:
@@ -27,12 +28,12 @@ def check_order(left, right):
     return -1
 
 
-with open('inp.txt') as f:
-    lines = [json.loads(x) for x in f.read().replace('\n\n', '\n').splitlines()]
+with open("inp.txt") as f:
+    lines = [json.loads(x) for x in f.read().replace("\n\n", "\n").splitlines()]
 
 lines.append([[2]])
 lines.append([[6]])
 
 lines = sorted(lines, key=cmp_to_key(check_order), reverse=True)
 
-print((lines.index([[2]])+1) * (lines.index([[6]])+1))
+print((lines.index([[2]]) + 1) * (lines.index([[6]]) + 1))

@@ -1,5 +1,5 @@
-with open('inp.txt') as f:
-    fishes = [int(x) for x in f.read().split(',')]
+with open("inp.txt") as f:
+    fishes = [int(x) for x in f.read().split(",")]
 
 days = 80
 new = 0
@@ -12,7 +12,7 @@ while days:
             new += 1
         else:
             fishes[i] -= 1
-    fishes += ([8] * new)
+    fishes += [8] * new
     days -= 1
 
 print(len(fishes))

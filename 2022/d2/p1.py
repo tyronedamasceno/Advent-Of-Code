@@ -1,15 +1,15 @@
-with open('inp.txt') as f:
-    lines = [x.split(' ') for x in f.read().split('\n')]
+with open("inp.txt") as f:
+    lines = [x.split(" ") for x in f.read().split("\n")]
 
 points = {
-    'X': 1,  # rock
-    'Y': 2,  # paper
-    'Z': 3,  # scissors
+    "X": 1,  # rock
+    "Y": 2,  # paper
+    "Z": 3,  # scissors
 }
 
 
-elf_wins = {('X', 'C'), ('Y', 'A'), ('Z', 'B')}
-elf_draws = {('X', 'A'), ('Y', 'B'), ('Z', 'C')}
+elf_wins = {("X", "C"), ("Y", "A"), ("Z", "B")}
+elf_draws = {("X", "A"), ("Y", "B"), ("Z", "C")}
 
 ans = 0
 

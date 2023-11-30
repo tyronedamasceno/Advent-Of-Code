@@ -1,8 +1,5 @@
-with open('inp.txt') as f:
-    lines = [
-        [int(x) for x in line.split(',')]
-        for line in f.read().split('\n')
-    ]
+with open("inp.txt") as f:
+    lines = [[int(x) for x in line.split(",")] for line in f.read().split("\n")]
 
 
 def is_connected(ca, cb):
@@ -17,8 +14,8 @@ def is_connected(ca, cb):
 
 k = 0
 for i in range(len(lines)):
-    for j in range(i+1, len(lines)):
+    for j in range(i + 1, len(lines)):
         if is_connected(lines[i], lines[j]):
             k += 1
 
-print(6*len(lines) - 2*k)
+print(6 * len(lines) - 2 * k)
