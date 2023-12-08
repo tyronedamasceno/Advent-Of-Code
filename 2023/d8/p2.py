@@ -1,10 +1,5 @@
 import math
 
-
-def lcm(a, b):
-    return abs(a * b) // math.gcd(a, b)
-
-
 with open("inp.txt") as f:
     lines = f.read().split('\n')
 
@@ -42,6 +37,6 @@ while True:
 mins = list(zs.values())
 ans = mins[0]
 for m in mins[1:]:
-    ans = lcm(ans, m)
+    ans = math.lcm(ans, m)
 
 print(ans)
