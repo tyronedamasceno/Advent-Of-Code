@@ -9,9 +9,6 @@ for idx, line in enumerate(lines):
     if set(line) == {'.'}:
         empty_lines.append(idx)
 
-# for i in empty_lines[::-1]:
-#     lines.insert(i, (['.'] * len_line))
-
 empty_columns = []
 for idx in range(len_line):
     flag = True
@@ -21,10 +18,6 @@ for idx in range(len_line):
             break
     if flag:
         empty_columns.append(idx)
-
-# for column in empty_columns[::-1]:
-#     for line in lines:
-#         line.insert(column, '.')
 
 galaxies = []
 for i, line in enumerate(lines):
