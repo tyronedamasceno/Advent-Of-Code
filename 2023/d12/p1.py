@@ -11,10 +11,10 @@ def get_options(springs):
             return
 
         if springs[idx] in '.#':
-            solve(f'{substr}{springs[idx]}', idx+1)
+            solve(f'{substr}{springs[idx]}', idx + 1)
         else:
-            solve(f'{substr}.', idx+1)
-            solve(f'{substr}#', idx+1)
+            solve(f'{substr}.', idx + 1)
+            solve(f'{substr}#', idx + 1)
     solve('', 0)
 
     return ops
