@@ -5,12 +5,16 @@ with open("inp.txt") as f:
     lines = f.read().split('\n')
 
 
-d = {
-    '>': (0, 1),
-    '<': (0, -1),
-    'v': (1, 0),
-    '^': (-1, 0),
-}
+def get_next(x, y, dir):
+    d = {
+        '>': (0, 1),
+        '<': (0, -1),
+        'v': (1, 0),
+        '^': (-1, 0),
+    }
+    a, b = d[dir]
+    return ((x + a, y + b), dir)
+
 
 seen = set()
 q = Queue()
@@ -27,52 +31,37 @@ while not q.empty():
     seen.add(((x, y), dir))
 
     if lines[x][y] == '.':
-        a, b = d[dir]
-        q.put(((x + a, y + b), dir))
+        q.put(get_next(x, y, dir))
     elif lines[x][y] == '-':
         if dir in ('>', '<'):
-            a, b = d[dir]
-            q.put(((x + a, y + b), dir))
+            q.put(get_next(x, y, dir))
         else:
-            a, b = d['>']
-            q.put(((x + a, y + b), '>'))
-            a, b = d['<']
-            q.put(((x + a, y + b), '<'))
+            q.put(get_next(x, y, '>'))
+            q.put(get_next(x, y, '<'))
     elif lines[x][y] == '|':
         if dir in ('v', '^'):
-            a, b = d[dir]
-            q.put(((x + a, y + b), dir))
+            q.put(get_next(x, y, dir))
         else:
-            a, b = d['^']
-            q.put(((x + a, y + b), '^'))
-            a, b = d['v']
-            q.put(((x + a, y + b), 'v'))
+            q.put(get_next(x, y, '^'))
+            q.put(get_next(x, y, 'v'))
     elif lines[x][y] == '/':
         if dir == '>':
-            a, b = d['^']
-            q.put(((x + a, y + b), '^'))
+            q.put(get_next(x, y, '^'))
         elif dir == '<':
-            a, b = d['v']
-            q.put(((x + a, y + b), 'v'))
+            q.put(get_next(x, y, 'v'))
         elif dir == '^':
-            a, b = d['>']
-            q.put(((x + a, y + b), '>'))
+            q.put(get_next(x, y, '>'))
         elif dir == 'v':
-            a, b = d['<']
-            q.put(((x + a, y + b), '<'))
+            q.put(get_next(x, y, '<'))
     elif lines[x][y] == '\\':
         if dir == '>':
-            a, b = d['v']
-            q.put(((x + a, y + b), 'v'))
+            q.put(get_next(x, y, 'v'))
         elif dir == '<':
-            a, b = d['^']
-            q.put(((x + a, y + b), '^'))
+            q.put(get_next(x, y, '^'))
         elif dir == '^':
-            a, b = d['<']
-            q.put(((x + a, y + b), '<'))
+            q.put(get_next(x, y, '<'))
         elif dir == 'v':
-            a, b = d['>']
-            q.put(((x + a, y + b), '>'))
+            q.put(get_next(x, y, '>'))
 
 
 print(len(set(a for a, _ in seen)))
