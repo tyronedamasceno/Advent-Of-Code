@@ -26,11 +26,12 @@ def dijkstra(grid):
     pq = PriorityQueue()
     seen = set()
     pq.put((0, 0, 0, 1, '>'))
+    pq.put((0, 0, 0, 1, 'v'))
 
     while not pq.empty():
         loss, x, y, steps, dir = pq.get()
 
-        if x == height - 1 and y == width - 1 and steps > 4:
+        if x == height - 1 and y == width - 1 and steps >= 4:
             return loss
 
         if (x, y, steps, dir) in seen:
@@ -39,7 +40,7 @@ def dijkstra(grid):
         seen.add((x, y, steps, dir))
 
         to_go = []
-        if steps <= 10:
+        if steps < 10:
             to_go.append(dir)
 
         if steps >= 4:
