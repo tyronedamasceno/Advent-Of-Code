@@ -31,7 +31,7 @@ def dijkstra(grid):
     while not pq.empty():
         loss, x, y, steps, dir = pq.get()
 
-        if x == height - 1 and y == width - 1 and steps >= 4:
+        if x == height - 1 and y == width - 1:
             return loss
 
         if (x, y, steps, dir) in seen:
