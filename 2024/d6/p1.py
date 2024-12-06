@@ -23,9 +23,6 @@ while True:
     else:
         didx += 1
         didx %= 4
-        ni = gi + dirs[didx][0]
-        nj = gj + dirs[didx][1]
-        gi, gj = ni, nj
 
 for x, y in seen:
     grid[x][y] = 'X'
