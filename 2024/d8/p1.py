@@ -21,12 +21,8 @@ for _, locs in antennas.items():
             dx = abs(ax - bx)
             dy = abs(ay - by)
 
-            if ax < bx and ay > by:
-                an1 = min(ax, bx) - dx, max(ay, by) + dy
-                an2 = max(ax, bx) + dx, min(ay, by) - dy
-            else:
-                an1 = min(ax, bx) - dx, min(ay, by) - dy
-                an2 = max(ax, bx) + dx, max(ay, by) + dy
+            an1 = 2 * ax - bx, 2 * ay - by
+            an2 = 2 * bx - ax, 2 * by - ay
 
             if 0 <= an1[0] < r and 0 <= an1[1] < c:
                 ans.add(an1)
