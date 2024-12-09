@@ -1,12 +1,19 @@
 with open('inp.txt') as f:
-    line = f.read()
+    lines = f.read().splitlines()
 
-cur = 0
-for i, d in enumerate(line):
-    if d == '(':
-        cur += 1
-    else:
-        cur -= 1
-    if cur == -1:
-        print(i + 1)
-        break
+ans = 0
+
+for line in lines:
+    tot = len(line)
+    stored = 2
+
+    i = 0
+    while i < len(line):
+        stored += 1
+        if line[i] in ('\\', '"'):
+            stored += 1
+        i += 1
+
+    ans += (stored - tot)
+
+print(ans)

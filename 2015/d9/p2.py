@@ -1,12 +1,24 @@
-with open('inp.txt') as f:
-    line = f.read()
+from itertools import permutations
 
-cur = 0
-for i, d in enumerate(line):
-    if d == '(':
-        cur += 1
-    else:
-        cur -= 1
-    if cur == -1:
-        print(i + 1)
-        break
+with open('inp.txt') as f:
+    lines = f.read().splitlines()
+
+dists = {}
+cities = set()
+
+for line in lines:
+    c1, _, c2, _, d = line.split()
+    cities.update({c1, c2})
+    dists[(c1, c2)] = int(d)
+    dists[(c2, c1)] = int(d)
+
+ans = -1
+
+for p in permutations(cities):
+    tmp = 0
+    for i in range(1, len(cities)):
+        tmp += dists[(p[i - 1], p[i])]
+
+    ans = max(ans, tmp)
+
+print(ans)
