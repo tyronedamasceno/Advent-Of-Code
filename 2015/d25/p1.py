@@ -1,24 +1,25 @@
-from itertools import permutations
+def next_code(k):
+    return (k * 252533) % 33554393
 
-with open('inp.txt') as f:
-    lines = f.read().splitlines()
 
-dists = {}
-cities = set()
+def next_position(i, j):
+    if i == 1:
+        return (j + 1, 1)
 
-for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+    return (i - 1, j + 1)
 
-ans = 9999999999999
 
-for p in permutations(cities):
-    tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
+p = 2947, 3029
 
-    ans = min(ans, tmp)
+i = 1
+j = 1
 
-print(ans)
+code = 20151125
+
+while True:
+    i, j = next_position(i, j)
+    code = next_code(code)
+    if (i, j) == p:
+        break
+
+print(code)

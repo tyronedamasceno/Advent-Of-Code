@@ -1,24 +1,38 @@
-from itertools import permutations
-
 with open('inp.txt') as f:
     lines = f.read().splitlines()
 
-dists = {}
-cities = set()
+mfcsam = {
+    'children': 3,
+    'cats': 7,
+    'samoyeds': 2,
+    'pomeranians': 3,
+    'akitas': 0,
+    'vizslas': 0,
+    'goldfish': 5,
+    'trees': 3,
+    'cars': 2,
+    'perfumes': 1,
+}
 
-for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+for idx, line in enumerate(lines):
+    props = line[line.find(':') + 2:]
+    sue = {}
+    for p in props.split(', '):
+        k, v = p.split(': ')
+        sue[k] = int(v)
 
-ans = -1
-
-for p in permutations(cities):
-    tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
-
-    ans = max(ans, tmp)
-
-print(ans)
+    flag = True
+    for k, v in sue.items():
+        if k in ('cats', 'trees') and v <= mfcsam[k]:
+            flag = False
+            break
+        elif k in ('pomeranians', 'goldfish') and v >= mfcsam[k]:
+            flag = False
+            break
+        elif k not in ('cats', 'trees', 'pomeranians', 'goldfish') and v != mfcsam[k]:
+            flag = False
+            break
+    if flag:
+        print(idx + 1)
+        print(sue)
+        break
