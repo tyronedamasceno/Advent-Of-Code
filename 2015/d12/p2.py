@@ -1,24 +1,25 @@
-from itertools import permutations
+import json
 
 with open('inp.txt') as f:
-    lines = f.read().splitlines()
+    line = f.read()
 
-dists = {}
-cities = set()
 
-for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+def check_reds(dt):
+    if isinstance(dt, int):
+        return dt
 
-ans = -1
+    if isinstance(dt, list):
+        return sum(check_reds(k) for k in dt)
 
-for p in permutations(cities):
-    tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
+    if isinstance(dt, dict):
+        if 'red' in dt.values():
+            return 0
+        tmp = 0
+        for v in dt.values():
+            tmp += check_reds(v)
+        return tmp
 
-    ans = max(ans, tmp)
+    return 0
 
-print(ans)
+
+print(check_reds(json.loads(line)))
