@@ -3,22 +3,26 @@ from itertools import permutations
 with open('inp.txt') as f:
     lines = f.read().splitlines()
 
-dists = {}
-cities = set()
+happiness = {}
+guests = set()
 
 for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+    p1, _, s, h, _, _, _, _, _, _, p2 = line[:-1].split()
+    h = int(h) if s == 'gain' else -int(h)
+    happiness[(p1, p2)] = h
+    guests.add(p1)
+
+guests.add('me')
+for g in guests:
+    happiness[('me', g)] = 0
+    happiness[(g, 'me')] = 0
 
 ans = -1
-
-for p in permutations(cities):
+for pm in permutations(guests):
     tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
-
+    for i, g in enumerate(pm):
+        tmp += happiness[(g, pm[((i + 1) % len(guests))])]
+        tmp += happiness[(g, pm[((i - 1) % len(guests))])]
     ans = max(ans, tmp)
 
 print(ans)

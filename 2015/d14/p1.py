@@ -1,24 +1,29 @@
-from itertools import permutations
-
 with open('inp.txt') as f:
     lines = f.read().splitlines()
 
-dists = {}
-cities = set()
-
+ans = (-1, 'a')
 for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+    k = line.split()
+    reindeer = k[0]
+    speed = int(k[3])
+    duration = int(k[6])
+    rest = int(k[-2])
 
-ans = 9999999999999
+    dist = 0
+    m = 0
+    flying = True
+    # breakpoint()
+    while m < 2503:
+        if not flying:
+            m += rest
+            flying = True
+            continue
 
-for p in permutations(cities):
-    tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
+        to_go = min(duration, 2503 - m)
+        dist += speed * to_go
+        m += to_go
+        flying = False
 
-    ans = min(ans, tmp)
+    ans = max(ans, (dist, reindeer))
 
 print(ans)

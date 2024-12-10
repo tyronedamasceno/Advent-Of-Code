@@ -1,24 +1,40 @@
-from itertools import permutations
-
 with open('inp.txt') as f:
     lines = f.read().splitlines()
 
-dists = {}
-cities = set()
+
+LIMIT = 2503
+ans = (-1, 'a')
+reindeers = {}
+score = {}
+position = {}
+ranges = {}
 
 for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+    k = line.split()
+    reindeer = k[0]
+    speed = int(k[3])
+    duration = int(k[6])
+    rest = int(k[-2])
+    reindeers[reindeer] = (speed, duration, rest)
+    score[reindeer] = 0
+    position[reindeer] = 0
+    ranges[reindeer] = []
 
-ans = -1
-
-for p in permutations(cities):
     tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
+    while tmp < LIMIT:
+        ranges[reindeer].append((tmp, tmp + duration))
+        tmp += (duration + rest)
 
-    ans = max(ans, tmp)
 
-print(ans)
+for i in range(LIMIT):
+    for r, (s, _, _) in reindeers.items():
+        for rg in ranges[r]:
+            if i in range(*rg):
+                position[r] += s
+    mp = max(position.values())
+    for r in reindeers:
+        if position[r] == mp:
+            score[r] += 1
+
+
+print(max(score.values()))
