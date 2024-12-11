@@ -1,24 +1,36 @@
-from itertools import permutations
+from copy import deepcopy
 
 with open('inp.txt') as f:
-    lines = f.read().splitlines()
+    grid = f.read().splitlines()
 
-dists = {}
-cities = set()
+grid = [list(l) for l in grid]
+n = len(grid)
 
-for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
 
-ans = 9999999999999
-
-for p in permutations(cities):
+def solve(i, j):
     tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
 
-    ans = min(ans, tmp)
+    for x in (-1, 0, 1):
+        for y in (-1, 0, 1):
+            if (x, y) == (0, 0):
+                continue
+            if 0 <= i + x < n and 0 <= j + y < n:
+                tmp += (grid[i + x][j + y] == '#')
 
-print(ans)
+    if grid[i][j] == '#' and tmp in (2, 3):
+        return '#'
+
+    if grid[i][j] == '.' and tmp == 3:
+        return '#'
+
+    return '.'
+
+
+for _ in range(100):
+    new = deepcopy(grid)
+    for i in range(n):
+        for j in range(n):
+            new[i][j] = solve(i, j)
+    grid = deepcopy(new)
+
+print(sum(sum(x == '#' for x in l) for l in grid))
