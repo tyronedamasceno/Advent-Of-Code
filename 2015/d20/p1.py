@@ -7,12 +7,9 @@ k = 0
 m = 0
 while True:
     k += 1
-    divs = set()
-    for i in range(1, int(sqrt(k) + 1)):
-        if k % i == 0:
-            divs.add(i)
-            divs.add(k // i)
+    divs = {i for i in range(1, int(sqrt(k)) + 1) if k % i == 0}
+    divs.update({k // d for d in divs})
     tmp = sum(divs) * 10
     if tmp > line:
-        print(k, tmp)
+        print(k)
         break

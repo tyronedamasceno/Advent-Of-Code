@@ -1,24 +1,16 @@
-from itertools import permutations
+from math import sqrt
 
 with open('inp.txt') as f:
-    lines = f.read().splitlines()
+    line = int(f.read())
 
-dists = {}
-cities = set()
 
-for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+k = 0
+while True:
+    k += 1
+    divs = {i for i in range(1, int(sqrt(k)) + 1) if k % i == 0}
+    divs.update({k // d for d in divs})
 
-ans = -1
-
-for p in permutations(cities):
-    tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
-
-    ans = max(ans, tmp)
-
-print(ans)
+    tmp = sum(d for d in divs if k // d <= 50) * 11
+    if tmp >= line:
+        print(k)
+        break
