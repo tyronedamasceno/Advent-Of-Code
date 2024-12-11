@@ -1,24 +1,17 @@
-from itertools import permutations
-
 with open('inp.txt') as f:
-    lines = f.read().splitlines()
+    rules, line = f.read().split('\n\n')
 
-dists = {}
-cities = set()
+rules = rules.splitlines()
 
-for line in lines:
-    c1, _, c2, _, d = line.split()
-    cities.update({c1, c2})
-    dists[(c1, c2)] = int(d)
-    dists[(c2, c1)] = int(d)
+ans = set()
 
-ans = 9999999999999
+for rule in rules:
+    orig, dest = rule.split(' => ')
+    idxs = []
+    start = 0
+    while (idx := line.find(orig, start)) != -1:
+        new = f'{line[:idx]}{dest}{line[idx + len(orig):]}'
+        start = idx + 1
+        ans.add(new)
 
-for p in permutations(cities):
-    tmp = 0
-    for i in range(1, len(cities)):
-        tmp += dists[(p[i - 1], p[i])]
-
-    ans = min(ans, tmp)
-
-print(ans)
+print(len(ans))
