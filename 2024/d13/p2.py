@@ -1,12 +1,9 @@
-from tqdm import tqdm
-from queue import Queue
-
 with open('inp.txt') as f:
     combos = f.read().split('\n\n')
 
 ans = 0
 
-for combo in tqdm(combos):
+for combo in combos:
     ba, bb, prize = combo.splitlines()
     bax, bay = ba[10:].split(', ')
     bax, bay = int(bax[2:]), int(bay[2:])
@@ -19,32 +16,15 @@ for combo in tqdm(combos):
     px += 10000000000000
     py += 10000000000000
 
-    break
+    b2 = ((-bay / bax) * px + py) / ((-bay / bax) * bbx + bby)
+    b1 = (px - (b2 * bbx)) / bax
 
-    qu = Queue()
-    qu.put((bax, bay, 3))
-    qu.put((bbx, bby, 1))
+    b1 = round(b1)
+    b2 = round(b2)
 
-    lans = float('inf')
-    seen = set()
+    if b1 * bax + b2 * bbx != px or b1 * bay + b2 * bby != py:
+        continue
 
-    while not qu.empty():
-        x, y, k = qu.get()
-        if ((x, y, k)) in seen:
-            continue
-        seen.add((x, y, k))
-        if (x, y) == (px, py):
-            lans = min(lans, k)
-            continue
-        if k > lans:
-            continue
-        if x > px or y > py:
-            continue
-
-        qu.put((x + bax, y + bay, k + 3))
-        qu.put((x + bbx, y + bby, k + 1))
-
-    if lans != float('inf'):
-        ans += lans
+    ans += b1 * 3 + b2
 
 print(ans)
